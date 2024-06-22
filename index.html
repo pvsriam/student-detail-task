@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form to Table</title>
+    <style>
+
+        button {
+            width: 100%;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="userForm">
+        <table border="1">
+            <tr>
+                <td>Name</td>
+                <td><input id="nameinput" type="text" placeholder="Enter your Name"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input id="ageinput" type="text" placeholder="Enter your Age"></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" value="Male" name="gender" id="male">Male
+                    <input type="radio" value="Female" name="gender" id="female">Female
+                </td>
+            </tr>
+            <tr>
+                <td>Course</td>
+                <td>
+                    <select id="course">
+                        <option value="Javascript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="Java">Java</option>
+                        <option value="C++">C++</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td><input id="emailinput" type="text" placeholder="Enter your E-mail"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button id="btn" type="submit" style="margin:auto; display: block; background-color: aqua;width: 100%;">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table border="1" id="displayTable">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Course</th>
+            <th>E-mail</th>
+            <th>Action</th>
+        </tr>
+    </table>
+
+    <script>
+
+        let form = document.getElementById('userForm');
+        let table = document.getElementById('displayTable');
+
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            let name = document.getElementById('nameinput').value;
+            let age = document.getElementById('ageinput').value;
+            let gender = document.querySelector('input[name="gender"]:checked').value;
+            let course = document.getElementById('course').value;
+            let email = document.getElementById('emailinput').value;
+
+            
+            let newRow = table.insertRow();
+            let nameCell = newRow.insertCell(0);
+            nameCell.textContent = name;
+
+            let ageCell = newRow.insertCell(1);
+            ageCell.textContent = age;
+
+            let genderCell = newRow.insertCell(2);
+            genderCell.textContent = gender;
+
+            let courseCell = newRow.insertCell(3);
+            courseCell.textContent = course;
+
+            let emailCell = newRow.insertCell(4);
+            emailCell.textContent = email;
+
+
+            let actionCell = newRow.insertCell(5);
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.style.backgroundColor = 'red';
+            deleteButton.addEventListener('click', function() {
+                table.deleteRow(newRow.rowIndex); 
+            });
+            actionCell.appendChild(deleteButton);
+            form.reset();
+        });
+    </script>
+</body>
+</html>
